@@ -38,7 +38,7 @@ jobs:
   
   build:
     docker:
-      - image: circleci/node:13.8.0
+      - image: docker:17.05.0-ce-git
     steps:
       - checkout
       - run:
@@ -48,7 +48,6 @@ jobs:
             docker build -t $DOCKER_PATH .
             docker login -p ${DOCKER_PASSWORD} -u ${DOCKER_USERNAME}
             docker push $DOCKER_PATH
-
   
 
   deploy-infrastructure:
