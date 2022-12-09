@@ -30,7 +30,8 @@ jobs:
     docker:
       - image: docker:latest
     steps:
-      - checkout      
+      - checkout 
+      - setup_remote_docker     
       - run:
           name: Build react
           command: |
