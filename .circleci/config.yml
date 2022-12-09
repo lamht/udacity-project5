@@ -92,10 +92,10 @@ workflows:
   default:
     jobs:
       - lint
-      # - build:
-      #     requires: [lint]
+      - build:
+          requires: [lint]
       - deploy-app:
-          # requires: [build]
+          requires: [build]
           filters:
             branches:
               only: [main]
