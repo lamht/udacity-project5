@@ -44,7 +44,6 @@ jobs:
       - run:
           name: Build react
           command: |
-            systemctl start docker
             DOCKER_PATH="thanhlam00290/udacity-project5"
             docker --version
             docker build -t $DOCKER_PATH .
