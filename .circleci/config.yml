@@ -44,13 +44,14 @@ jobs:
 
   deploy-infrastructure:
     docker:
-      - image: amazon/aws-cli:latest
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       - run:
-          name: Install dependencies
+          name: Install eksctl
           command: |
-            yum install -y tar gzip
+            curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+            sudo mv /tmp/eksctl /usr/local/bin
       - run:
           name: Ensure EKS exists
           command: |
