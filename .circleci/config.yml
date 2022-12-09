@@ -46,6 +46,7 @@ jobs:
           command: |
             DOCKER_PATH="thanhlam00290/udacity-project5"
             docker --version
+            sudo dockerd
             docker build -t $DOCKER_PATH .
             docker login -p ${DOCKER_PASSWORD} -u ${DOCKER_USERNAME}
             docker push $DOCKER_PATH
