@@ -13,7 +13,7 @@ commands:
 jobs:
   lint:
     docker:
-      - image: circleci/node:16-bullseye-browsers-legacy
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       - run:
@@ -73,22 +73,29 @@ jobs:
             curl -LO https://dl.k8s.io/release/v1.25.0/bin/linux/amd64/kubectl
             sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
       - run:
+          name: Install aws-cli
+          command: |
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
+      - run:
           name: Deploy app
           command: |
             DOCKER_PATH="thanhlam00290/udacity-project5"
-            sed 's+thanhlam00290/udacity-project5:0.1+$DOCKER_PATH:${CIRCLE_WORKFLOW_ID:0:7}+g' app-deployment.yml >> deploy.yml
+            # sed 's+thanhlam00290/udacity-project5:0.1+$DOCKER_PATH:${CIRCLE_WORKFLOW_ID:0:7}+g' app-deployment.yml >> deploy.yml
             aws eks --region us-east-1 update-kubeconfig --name eksctl-demo
-            kubectl apply -f ./deploy.yml
+            kubectl apply -f ./app-deployment.yml
 
   
 workflows:
   default:
     jobs:
       - lint
-      - build:
-          requires: [lint]
+      - deploy-infrastructure
+      # - build:
+      #     requires: [lint]
       - deploy-app:
-          requires: [build]
+          # requires: [build]
           filters:
             branches:
               only: [main]
