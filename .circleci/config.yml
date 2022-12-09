@@ -6,7 +6,7 @@ commands:
     steps:
       - run:
           name: Destroy environments
-          when: on_fail
+          # when: on_fail
           command: |
             eksctl delete cluster --name eksctl-demo --region=us-east-1
 
@@ -93,10 +93,11 @@ workflows:
   default:
     jobs:
       - lint
-      - build:
-          requires: [lint]
-      - deploy-app:
-          requires: [build]
-          filters:
-            branches:
-              only: [main]
+      - destroy-environment
+      # - build:
+      #     requires: [lint]
+      # - deploy-app:
+      #     requires: [build]
+      #     filters:
+      #       branches:
+      #         only: [main]
