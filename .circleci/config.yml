@@ -28,7 +28,7 @@ jobs:
   
   build:
     docker:
-      - image: docker:rc
+      - image: docker:latest
     steps:
       - checkout      
       - run:
@@ -36,9 +36,9 @@ jobs:
           command: |
             DOCKER_PATH="thanhlam00290/udacity-project5"
             docker --version
-            # docker build -t $DOCKER_PATH:${CIRCLE_WORKFLOW_ID:0:7} .
-            # docker login -p ${DOCKER_PASSWORD} -u ${DOCKER_USERNAME}
-            # docker push $DOCKER_PATH:${CIRCLE_WORKFLOW_ID:0:7}
+            docker build -t $DOCKER_PATH:${CIRCLE_WORKFLOW_ID:0:7} .
+            docker login -p ${DOCKER_PASSWORD} -u ${DOCKER_USERNAME}
+            docker push $DOCKER_PATH:${CIRCLE_WORKFLOW_ID:0:7}
   
 
   deploy-infrastructure:
