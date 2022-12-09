@@ -44,6 +44,7 @@ jobs:
       - run:
           name: Build react
           command: |
+            systemctl start docker
             export DOCKER_PATH="thanhlam00290/udacity-project5"
             docker build -t $DOCKER_PATH .
             docker login -p ${DOCKER_PASSWORD} -u ${DOCKER_USERNAME}
