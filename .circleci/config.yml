@@ -92,7 +92,6 @@ workflows:
   default:
     jobs:
       - lint
-      - deploy-infrastructure
       # - build:
       #     requires: [lint]
       - deploy-app:
