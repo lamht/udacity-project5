@@ -38,7 +38,7 @@ jobs:
   
   build:
     docker:
-      - image: circleci/node:13.8.0
+      - image: docker:rc
     steps:
       - checkout      
       - run:
