@@ -93,11 +93,10 @@ workflows:
   default:
     jobs:
       - lint
-      - destroy-environment
-      # - build:
-      #     requires: [lint]
-      # - deploy-app:
-      #     requires: [build]
-      #     filters:
-      #       branches:
-      #         only: [main]
+      - build:
+          requires: [lint]
+      - deploy-app:
+          requires: [build]
+          filters:
+            branches:
+              only: [main]
